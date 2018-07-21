@@ -17,9 +17,9 @@ const FriendCard = props => (
         <p className="card-text">Category, Genre, Etc.</p>
       </div>
       <div className="col">
-      <i class="fas fa-arrow-circle-up fa-3x" onClick={() => props.votedUp(props.id)}></i>
+      <i className="fas fa-arrow-circle-up fa-3x" onClick={() => props.votedUp(props.id)}></i>
       <p className="card-text">{props.score}</p>
-      <i class="fas fa-arrow-circle-down fa-3x" onClick={() => props.votedDown(props.id)}></i>
+      <i className="fas fa-arrow-circle-down fa-3x" onClick={() => props.votedDown(props.id)}></i>
       </div>
     </div>
   </div>

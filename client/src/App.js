@@ -5,6 +5,9 @@ import Wrapper from "./components/Wrapper";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
 import "./App.css";
+// import axios from "axios";
+import $ from "jquery";
+
 
 // Help from Will
 
@@ -29,28 +32,25 @@ import "./App.css";
 
 class App extends React.Component {
   state = {
-    venues:[],
+    places:[],
     totalScore: 0,
     message: "Thanks for voting!"
   };
 
   componentDidMount = () => {
-    // Ajax for all venues
-    fetch("https://localhost:3001/")
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({venues: result})
-      }
-    )
-    // $.ajax({
-    //   method: "GET",
-    //   url: "/"
-    // })
-    // .then(function (data) {
-    //   console.log(data);
-    //   this.setState({ venues: data })
-    // })
+    // Ajax forplaces
+    $.ajax({
+      method: "GET",
+      url: "/places"
+    })
+    .then((data) => {
+      console.log(data);
+      this.setState({ ...this.state, places: data })
+      console.log("state " + this.state.places);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
   }
 
   votedUp = id => {
@@ -58,23 +58,16 @@ class App extends React.Component {
     this.increaseScore();
 
     // Make ajax call to increase Score for venue
-    const url = "https://localhost:3001/api/increaseScore/" + id
-    fetch(url)
-    .then(res => res.json())
-    .then(
-      (result) => {
-      }
-    )
-    // $.ajax({
-    //   method: "PUT",
-    //   url: "/api/increaseScore/" + id,
-    // })
-    //   // With that done
-    //   .then(function (data) {
-    //     // Log the response
-    //     console.log(data);
-    //     // Empty the notes section
-    //   });
+    $.ajax({
+      method: "PUT",
+      url: "/api/increaseScore/" + id,
+    })
+      // With that done
+      .then(function (data) {
+        // Log the response
+        console.log(data);
+        // Empty the notes section
+      });
   };
 
   votedDown = id => {
@@ -82,23 +75,16 @@ class App extends React.Component {
     this.decreaseScore();
 
     // Make ajax call to decrease score for venue
-    const url = "https://localhost:3001/api/increaseScore/" + id
-    fetch(url)
-    .then(res => res.json())
-    .then(
-      (result) => {
-      }
-    )
-    // $.ajax({
-    //   method: "PUT",
-    //   url: "/api/decreaseScore/" + id,
-    // })
-    //   // With that done
-    //   .then(function (data) {
-    //     // Log the response
-    //     console.log(data);
-    //     // Empty the notes section
-    //   });
+    $.ajax({
+      method: "PUT",
+      url: "/api/decreaseScore/" + id,
+    })
+      // With that done
+      .then(function (data) {
+        // Log the response
+        console.log(data);
+        // Empty the notes section
+      });
   }
 
   increaseScore = () => {
@@ -117,15 +103,15 @@ class App extends React.Component {
         <div className="background">
           <Wrapper>
             <Header />
-            {this.state.venues.map(venue => (
+            {this.state.places.map(place => (
               <FriendCard
                 selectCard={this.selectCard}
-                id={venue.id}
-                key={venue.id}
-                name={venue.name}
-                image={venue.image}
-                occupation={venue.occupation}
-                location={venue.location}
+                id={place.id}
+                key={place.id}
+                name={place.name}
+                image={place.image}
+                occupation={place.occupation}
+                location={place.location}
               />
             ))}
           </Wrapper>

@@ -1,20 +1,20 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var Users = new Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    password: {
-        type: String,
-        required: true,
-        unique: false,
-    }
-});
+// var UsersSchema = new Schema({
+//     username: {
+//         type: String,
+//         required: true,
+//         unique: true,
+//     },
+//     password: {
+//         type: String,
+//         required: true,
+//         unique: false,
+//     }
+// });
 
-var Places = new Schema({
+var PlacesSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -46,9 +46,9 @@ var Places = new Schema({
 // }
 
 // This creates our model from the above schema, using mongoose's model method
-var Users = mongoose.model("Users", Users);
-var Places = mongoose.model("Places", Places);
+// var User = mongoose.model("Users", UsersSchema);
+module.exports = mongoose.model("Places", PlacesSchema);
 
 // Export the Article model
-module.exports = Users;
-module.exports = Places;
+// module.exports = User;
+// module.exports = Place;
