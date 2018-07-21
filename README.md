@@ -1,2 +1,3 @@
-# Poppin
-Realtime nightclub data
+# Poppin App
+
+## Realtime nightclub data
