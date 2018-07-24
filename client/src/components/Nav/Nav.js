@@ -13,7 +13,7 @@ const Nav = props => (
     <ul className="navbar-nav ml-auto">
 
       <li className="nav-item dropdown">
-        <button className="btn btn-outline-primary nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter</button>
+        <button className="btn btn-outline-primary nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter</button>
         <div className="dropdown-menu">
           <a href="#" className="dropdown-item" onClick={() => props.filterAll()}>Show All (default)</a>
           <div className="dropdown-divider"></div>
@@ -23,7 +23,7 @@ const Nav = props => (
       </li>
 
       <li className="nav-item dropdown">
-      <button className="btn btn-outline-primary nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort</button>
+      <button className="btn btn-outline-primary nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort</button>
         <div className="dropdown-menu">
           <a href="#" className="dropdown-item" onClick={() => props.sortDescending()}>Descending (default)</a>
           <a href="#" className="dropdown-item" onClick={() => props.sortAscending()}>Ascending</a>
@@ -31,7 +31,7 @@ const Nav = props => (
       </li>
 
       <li className="nav-item">
-        <a className="nav-link" href="#">My Account</a>
+        <a className="nav-link" href="/account">My Account</a>
       </li>
 
     </ul>

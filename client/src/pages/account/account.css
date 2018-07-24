@@ -1,0 +1,19 @@
+.bioImg {
+    width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+a {
+    display: block;
+}
+
+.bio {
+    border: 1px solid lightgray;
+    height: 50%;
+    padding: 5px;
+}
+
+.row {
+    border: none;
+}

@@ -2,14 +2,15 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+
 // Require all models
 var db = require("./models")();
 
 const app = express();
-
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 // Connect to the Mongo DB
 var databaseUri = 'mongodb://localhost/Popn';
@@ -85,33 +86,27 @@ app.get("/sort-ascending", (req, res) => {
 });
 
 app.put("/api/increaseScore/:id", (req, res)=>{
-  console.log("id sent over: " + req.params.id);
-  var newID =  mongoose.Types.ObjectId(req.params.id);
-  console.log(newID);
-  db.model('Place').find().where({_id:req.params.id})
-    .then((place) => {
-      console.log(JSON.stringify(place))
-      place.countShown = place.countShown + 1;
-      return place.save();
+  db.model('Place').update(
+    { _id: req.params.id},
+    { $inc: { countShown: 1 } }
+  )
+    .then(function (places) {
+      res.json(places);
+      console.log("Count increased");
     })
-    .then(place=>{
-      console.log(JSON.stringify(place))
-      res.json(place);
-    })
-    .catch((err) => {console.log(err);res.sendStatus(500)});
+    .catch(function (err) {
+      res.json(err);
+    });
 });
 
 app.put("/api/decreaseScore/:id", (req, res) => {
-  console.log("req: " + req.params.id);
   db.model('Place').update(
     { _id: req.params.id},
     { $inc: { countShown: -1 } }
   )
-    // .exec()
     .then(function (places) {
       res.json(places);
       console.log("Count decreased");
-      console.log("places: " + places.countShown);
     })
     .catch(function (err) {
       res.json(err);
