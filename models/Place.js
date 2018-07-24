@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
-
-// Save a reference to the Schema constructor
+module.exports = function(connection){
+  // Save a reference to the Schema constructor
 var Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new UserSchema object
@@ -36,7 +36,5 @@ var PlaceSchema = new Schema({
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var Place = mongoose.model("Place", PlaceSchema);
-
-// Export the Article model
-module.exports = Place;
+var Place = connection.model("Place", PlaceSchema);
+}

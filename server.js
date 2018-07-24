@@ -2,9 +2,8 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
 // Require all models
-var db = require("./models");
+var db = require("./models")();
 
 const app = express();
 
@@ -16,9 +15,9 @@ app.use(bodyParser.json());
 var databaseUri = 'mongodb://localhost/Popn';
 
 if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI);
+  db.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect(databaseUri);
+  db.connect(databaseUri);
 }
 
 const PORT = process.env.PORT || 3001;
@@ -29,18 +28,10 @@ if (process.env.NODE_ENV === "production") {
 
 }
 
-
-//Middleware for adding mongo db connection to all requests
-// app.use(function(req,res,next){
-//   req.connection = connection;
-//   next()
-// })
-
-
 // Default route to pull all places from database
 app.get("/places", (req, res) => {
   console.log("getting all places");
-  db.Place.find({}).sort({ countShown: - 1 })
+  db.model('Place').find({}).sort({ countShown: - 1 })
     .exec(function (err, places) {
       if (err) {
         res.send("cannont grab places");
@@ -54,7 +45,7 @@ app.get("/places", (req, res) => {
 // Route to filter data by bars
 app.get("/filter-bars", (req, res) => {
   console.log("getting all places");
-  db.Place.find({ type: "bar" })
+  db.model('Place').find({ type: "bar" })
     .exec(function (err, places) {
       if (err) {
         res.send("cannont grab places");
@@ -68,7 +59,7 @@ app.get("/filter-bars", (req, res) => {
 // Route to filter data by nightclubs
 app.get("/filter-nightclubs", (req, res) => {
   console.log("getting all places");
-  db.Place.find({ type: "nightclub" })
+  db.model('Place').find({ type: "nightclub" })
     .exec(function (err, places) {
       if (err) {
         res.send("cannont grab places");
@@ -81,7 +72,7 @@ app.get("/filter-nightclubs", (req, res) => {
 
 app.get("/sort-ascending", (req, res) => {
   console.log("getting all places");
-  db.Place.find({}).sort({ countShown: 1 })
+  db.model('Place').find({}).sort({ countShown: 1 })
     .exec(function (err, places) {
       if (err) {
         res.send("cannont grab places");
@@ -97,7 +88,7 @@ app.put("/api/increaseScore/:id", (req, res)=>{
   console.log("id sent over: " + req.params.id);
   var newID =  mongoose.Types.ObjectId(req.params.id);
   console.log(newID);
-  db.Place.find().where({id: mongoose.Types.ObjectId(req.params.id)})
+  db.model('Place').find().where({_id:req.params.id})
     .then((place) => {
       console.log(JSON.stringify(place))
       place.countShown = place.countShown + 1;
@@ -112,11 +103,11 @@ app.put("/api/increaseScore/:id", (req, res)=>{
 
 app.put("/api/decreaseScore/:id", (req, res) => {
   console.log("req: " + req.params.id);
-  db.Place.update(
+  db.model('Place').update(
     { _id: req.params.id},
-    { $inc: { "countShown": -1 } }
+    { $inc: { countShown: -1 } }
   )
-    .exec()
+    // .exec()
     .then(function (places) {
       res.json(places);
       console.log("Count decreased");
@@ -126,7 +117,7 @@ app.put("/api/decreaseScore/:id", (req, res) => {
       res.json(err);
     });
 })
-// Routes
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });

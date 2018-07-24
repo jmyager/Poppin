@@ -178,7 +178,7 @@ class App extends React.Component {
                 votedUp={this.votedUp}
                 votedDown={this.votedDown}
                 id={place._id}
-                key={place.id}
+                key={place._id}
                 name={place.name}
                 countShown={place.countShown}
                 image={place.image}
