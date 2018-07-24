@@ -12,6 +12,7 @@
 	 border-radius: 50%;
 	 height: 5rem;
 	 width: 5rem;
+	 border: 2px groove #007bff;
  }
  
 
@@ -27,4 +28,16 @@
 	 margin-left: 2%;
 	 margin-right: 0;
 	 transition: .5s;
+ }
+
+ .votingBox {
+	 display: inline-flex;
+ }
+
+ .voteCount {
+	 margin: 5% 10% 0% 10%;
+ }
+
+ i:hover {
+	 color: #007bff;
  }

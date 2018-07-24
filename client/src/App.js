@@ -3,7 +3,7 @@ import FriendCard from "./components/FriendCard";
 import Wrapper from "./components/Wrapper";
 // import friends from "./friends.json";
 import Nav from "./components/Nav";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import "./App.css";
 // import axios from "axios";
 import $ from "jquery";
@@ -32,40 +32,103 @@ import $ from "jquery";
 
 class App extends React.Component {
   state = {
-    places:[],
-    totalScore: 0,
+    places: [],
+    totalScore: 500,
     message: "Thanks for voting!"
   };
 
+  // When page loads
   componentDidMount = () => {
-    // Ajax forplaces
+    this.getAll();
+  }
+
+
+  // Default ajax call to pull all places from database
+  getAll = () => {
     $.ajax({
       method: "GET",
       url: "/places"
     })
-    .then((data) => {
-      console.log(data);
-      this.setState({ ...this.state, places: data })
-      console.log("state " + this.state.places);
+      .then((data) => {
+        console.log(data);
+        this.setState({ ...this.state, places: data })
+        console.log("state " + this.state.places);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  // Filter places by default (no filter)
+  filterAll = () => {
+    this.getAll();
+  }
+
+  filterBars = () => {
+    $.ajax({
+      method: "GET",
+      url: "/filter-bars"
     })
-    .catch(err=>{
-      console.log(err);
+      .then((data) => {
+        console.log(data);
+        this.setState({ ...this.state, places: data })
+        console.log("state " + this.state.places);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  filterNightclubs = () => {
+    $.ajax({
+      method: "GET",
+      url: "/filter-nightclubs"
     })
+      .then((data) => {
+        console.log(data);
+        this.setState({ ...this.state, places: data })
+        console.log("state " + this.state.places);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  // Sort places by descending order (default)
+  sortDescending = () => {
+    this.getAll();
+  }
+
+  // Sort places by ascending order
+  sortAscending = () => {
+    $.ajax({
+      method: "GET",
+      url: "/sort-ascending"
+    })
+      .then((data) => {
+        console.log(data);
+        this.setState({ ...this.state, places: data })
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   votedUp = id => {
     // Increase the total score
+    const newId = id;
     this.increaseScore();
 
     // Make ajax call to increase Score for venue
     $.ajax({
       method: "PUT",
-      url: "/api/increaseScore/" + id,
+      url: "/api/increaseScore/" + newId,
     })
       // With that done
       .then(function (data) {
         // Log the response
         console.log(data);
+        console.log("voted Up! (after ajax)");
         // Empty the notes section
       });
   };
@@ -99,29 +162,33 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      // <div>
         <div className="background">
+          <Nav
+            totalScore={this.state.totalScore}
+            sortDescending={this.sortDescending}
+            sortAscending={this.sortAscending}
+            filterAll={this.filterAll}
+            filterBars={this.filterBars}
+            filterNightclubs={this.filterNightclubs}
+          />
           <Wrapper>
-            <Header />
             {this.state.places.map(place => (
               <FriendCard
-                selectCard={this.selectCard}
-                id={place.id}
+                votedUp={this.votedUp}
+                votedDown={this.votedDown}
+                id={place._id}
                 key={place.id}
                 name={place.name}
+                countShown={place.countShown}
                 image={place.image}
                 occupation={place.occupation}
                 location={place.location}
               />
             ))}
           </Wrapper>
-          <Nav
-            message={this.state.message}
-            score={this.state.score}
-            highScore={this.state.highScore}
-          />
         </div>
-      </div>
+      // </div>
     );
   }
 }

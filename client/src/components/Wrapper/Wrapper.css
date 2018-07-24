@@ -8,12 +8,10 @@
   justify-content: space-around;
   align-content: flex-start;
   overflow: auto;
-} */
-
-/* .wrapper {
+}
+ .wrapper {
   padding-top: 1%;
 } */
-
 .container-fluid {
-  padding-top: 10%;
+   padding-top: 15px;
 }
