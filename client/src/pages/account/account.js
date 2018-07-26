@@ -57,7 +57,6 @@ class Account extends React.Component {
             <h6>Total Score: {this.state.userScore}</h6>
             <div className="bio text-center">
             <p>Bio</p>
-            
             </div>
             </div>
         </div>

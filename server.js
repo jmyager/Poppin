@@ -71,22 +71,8 @@ app.get("/filter-nightclubs", (req, res) => {
     });
 })
 
-app.get("/sort-ascending", (req, res) => {
-  console.log("getting all places");
-  db.model('Place').find({}).sort({ countShown: 1 })
-    .exec(function (err, places) {
-      if (err) {
-        res.send("cannont grab places");
-      } else {
-        console.log(places);
-        res.json(places);
-
-      }
-    });
-});
-
 app.put("/api/increaseScore/:id", (req, res)=>{
-  db.model('Place').update(
+  db.model('Place').findByIdAndUpdate(
     { _id: req.params.id},
     { $inc: { countShown: 1 } }
   )

@@ -5,24 +5,27 @@ import Nav from "../../components/Nav";
 import "./home.css";
 import $ from "jquery";
 
-class Home extends React.Component {
-  state = {
-    places: [],
-    totalScore: 500,
-    message: "Thanks for voting!"
-  };
+let all = [];
+let bars = [];
+let nightclubs = [];
+let placesObj = {};
+let filterState = "all";
+let sortState = "desc";
 
-  componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
-    if (this.props.userID !== prevProps.userID) {
-      this.fetchData(this.props.userID);
+class Home extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      places: [],
+      totalScore: 500,
     }
   }
 
   // When page loads
   componentDidMount = () => {
+    // run the get all to retrieve database data, then sort the data into seperate arrays
     this.getAll();
-  }
+  };
 
   // Default ajax call to pull all places from database
   getAll = () => {
@@ -34,6 +37,12 @@ class Home extends React.Component {
         console.log(data);
         this.setState({ ...this.state, places: data })
         console.log("state " + this.state.places);
+        all = data;
+        bars = data.filter((place) =>
+          place.type === "bar");
+        nightclubs = data.filter((place) =>
+          place.type === "nightclub");
+        return placesObj = { all: all, bars: bars, nightclubs: nightclubs };
       })
       .catch(err => {
         console.log(err);
@@ -42,79 +51,104 @@ class Home extends React.Component {
 
   // Filter places by default (no filter)
   filterAll = () => {
-    this.getAll();
+    filterState = "all"
+    // const newFilter = "all";
+    // this.setState({ filter: newFilter },
+    this.organizeCards();
   }
 
+  // Filter places by bars only
   filterBars = () => {
-    $.ajax({
-      method: "GET",
-      url: "/filter-bars"
-    })
-      .then((data) => {
-        console.log(data);
-        this.setState({ ...this.state, places: data })
-        console.log("state " + this.state.places);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    filterState = "bars";
+    // const newFilter = "bars";
+    // this.setState({ filter: newFilter },
+    this.organizeCards();
   }
 
+  // Filter places by nightclubs only
   filterNightclubs = () => {
-    $.ajax({
-      method: "GET",
-      url: "/filter-nightclubs"
-    })
-      .then((data) => {
-        console.log(data);
-        this.setState({ ...this.state, places: data })
-        console.log("state " + this.state.places);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    filterState = "nightclubs";
+    // const newFilter = "nightclubs";
+    // this.setState({ filter: newFilter },
+    this.organizeCards();
   }
 
   // Sort places by descending order (default)
   sortDescending = () => {
-    this.getAll();
+    sortState = "desc";
+    // const newSort = "desc";
+    // this.setState({ sort: newSort },
+    this.organizeCards();
   }
 
   // Sort places by ascending order
   sortAscending = () => {
-    $.ajax({
-      method: "GET",
-      url: "/sort-ascending"
-    })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    sortState = "asc";
+    // const newSort = "asc";
+    // this.setState({ sort: newSort },
+    this.organizeCards();
+  }
+ 
+  organizeCards = () => {
+    const filterCheck = filterState;
+    const sortCheck = sortState;
+
+    if (filterCheck === "all" && sortCheck === "desc") {
+      this.setState({ places: placesObj.all })
+      console.log("filter check 1")
+    }
+    else if (filterCheck === "all" && sortCheck === "asc") {
+      const allAscPlaces = this.state.places.reverse();
+      this.setState({ places: allAscPlaces })
+      console.log("filter check 2")
+    }
+    else if (filterCheck === "bars" && sortCheck === "desc") {
+      this.setState({ places: placesObj.bars });
+      console.log("filter check 3")
+    }
+    else if (filterCheck === "bars" && sortCheck === "asc") {
+      const barsAscPlaces = placesObj.bars.reverse();
+      this.setState({ places: barsAscPlaces });
+      console.log("filter check 4")
+    }
+    else if (filterCheck === "nightclubs" && sortCheck === "desc") {
+      this.setState({ places: placesObj.nightclubs })
+      console.log("filter check 5")
+
+    }
+    else if (filterCheck === "nightclubs" && sortCheck === "asc") {
+      const nightclubsAscPlaces = placesObj.nightclubs.reverse();
+      this.setState({ places: nightclubsAscPlaces });
+      console.log("filter check 6")
+    }
+    else {
+      console.log("no organize check was made");
+    }
   }
 
+
+
+
+  // Increment the place's score in the database
   votedUp = id => {
     // Increase the total score
-    const newId = id;
     this.increaseScore();
-
     // Make ajax call to increase Score for venue
     $.ajax({
       method: "PUT",
-      url: "/api/increaseScore/" + newId,
+      url: "/api/increaseScore/" + id,
     })
-      // With that done
-      .then(function (data) {
-        // Log the response
+      .then((data) => {
         console.log(data);
+        alert("Thank you for voting!");
+        this.getAll();
       });
   };
 
+  // Decrement the place's score in the database
   votedDown = id => {
     // Decrease the total score
     this.decreaseScore();
-
     // Make ajax call to decrease score for venue
     $.ajax({
       method: "PUT",
@@ -122,6 +156,8 @@ class Home extends React.Component {
     })
       .then((data) => {
         console.log(data);
+        alert("Thank you for voting!");
+        this.getAll();
       });
   }
 
