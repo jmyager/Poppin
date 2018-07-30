@@ -71,10 +71,12 @@ app.get("/filter-nightclubs", (req, res) => {
     });
 })
 
+// Route to increase score after upvote click
 app.put("/api/increaseScore/:id", (req, res)=>{
   db.model('Place').findByIdAndUpdate(
     { _id: req.params.id},
-    { $inc: { countShown: 1 } }
+    { $inc: { countShown: 1 } },
+    {new: true}
   )
     .then(function (places) {
       res.json(places);
@@ -85,10 +87,12 @@ app.put("/api/increaseScore/:id", (req, res)=>{
     });
 });
 
+// Route to decrease score after downvote click
 app.put("/api/decreaseScore/:id", (req, res) => {
-  db.model('Place').update(
+  db.model('Place').findByIdAndUpdate(
     { _id: req.params.id},
-    { $inc: { countShown: -1 } }
+    { $inc: { countShown: -1 } },
+    {new: true}
   )
     .then(function (places) {
       res.json(places);

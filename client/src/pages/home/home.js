@@ -34,9 +34,7 @@ class Home extends React.Component {
       url: "/places"
     })
       .then((data) => {
-        console.log(data);
         this.setState({ ...this.state, places: data })
-        console.log("state " + this.state.places);
         all = data;
         bars = data.filter((place) =>
           place.type === "bar");
@@ -52,74 +50,67 @@ class Home extends React.Component {
   // Filter places by default (no filter)
   filterAll = () => {
     filterState = "all"
-    // const newFilter = "all";
-    // this.setState({ filter: newFilter },
     this.organizeCards();
   }
 
   // Filter places by bars only
   filterBars = () => {
     filterState = "bars";
-    // const newFilter = "bars";
-    // this.setState({ filter: newFilter },
     this.organizeCards();
   }
 
   // Filter places by nightclubs only
   filterNightclubs = () => {
     filterState = "nightclubs";
-    // const newFilter = "nightclubs";
-    // this.setState({ filter: newFilter },
     this.organizeCards();
   }
 
   // Sort places by descending order (default)
   sortDescending = () => {
     sortState = "desc";
-    // const newSort = "desc";
-    // this.setState({ sort: newSort },
     this.organizeCards();
   }
 
   // Sort places by ascending order
   sortAscending = () => {
     sortState = "asc";
-    // const newSort = "asc";
-    // this.setState({ sort: newSort },
     this.organizeCards();
   }
- 
+
   organizeCards = () => {
     const filterCheck = filterState;
     const sortCheck = sortState;
 
     if (filterCheck === "all" && sortCheck === "desc") {
       this.setState({ places: placesObj.all })
-      console.log("filter check 1")
+      console.log("Organize check 1")
     }
     else if (filterCheck === "all" && sortCheck === "asc") {
       const allAscPlaces = this.state.places.reverse();
       this.setState({ places: allAscPlaces })
-      console.log("filter check 2")
+      console.log("Organize check 2")
     }
     else if (filterCheck === "bars" && sortCheck === "desc") {
-      this.setState({ places: placesObj.bars });
-      console.log("filter check 3")
+      const barsDescPlaces = placesObj.bars.reverse();
+      this.setState({ places: barsDescPlaces });
+      console.log("Organize check 3")
     }
     else if (filterCheck === "bars" && sortCheck === "asc") {
       const barsAscPlaces = placesObj.bars.reverse();
       this.setState({ places: barsAscPlaces });
-      console.log("filter check 4")
+      console.log("Organize check 4")
     }
     else if (filterCheck === "nightclubs" && sortCheck === "desc") {
-      this.setState({ places: placesObj.nightclubs })
-      console.log("filter check 5")
+      const nightclubsDescPlaces = placesObj.nightclubs.reverse();
+      this.setState({ places: nightclubsDescPlaces })
+      console.log("Organize check 5")
+      console.log(placesObj.nightclubs);
 
     }
     else if (filterCheck === "nightclubs" && sortCheck === "asc") {
       const nightclubsAscPlaces = placesObj.nightclubs.reverse();
       this.setState({ places: nightclubsAscPlaces });
-      console.log("filter check 6")
+      console.log("Organize check 6")
     }
     else {
       console.log("no organize check was made");
@@ -131,6 +122,7 @@ class Home extends React.Component {
 
   // Increment the place's score in the database
   votedUp = id => {
+
     // Increase the total score
     this.increaseScore();
     // Make ajax call to increase Score for venue
@@ -139,9 +131,17 @@ class Home extends React.Component {
       url: "/api/increaseScore/" + id,
     })
       .then((data) => {
-        console.log(data);
+        // Map a new array with the data returned
+        let updatedPlaces = this.state.places.map((place) => {
+          if (place._id === data._id) {
+            return data;
+          }
+          else {
+            return place;
+          }
+        })
+        this.setState({ ...this.state, places: updatedPlaces });
         alert("Thank you for voting!");
-        this.getAll();
       });
   };
 
@@ -155,16 +155,26 @@ class Home extends React.Component {
       url: "/api/decreaseScore/" + id,
     })
       .then((data) => {
-        console.log(data);
+        // Map a new array with the data returned
+        let updatedPlaces = this.state.places.map((place) => {
+          if (place._id === data._id) {
+            return data;
+          }
+          else {
+            return place;
+          }
+        })
+        this.setState({ ...this.state, places: updatedPlaces });
         alert("Thank you for voting!");
-        this.getAll();
       });
   }
 
+  // Increase the city's local total score
   increaseScore = () => {
     this.setState({ totalScore: this.state.totalScore + 1 })
   }
 
+  // Decrease the city's local total score
   decreaseScore = () => {
     this.setState({ totalScore: this.state.totalScore - 1 })
   }
@@ -173,7 +183,6 @@ class Home extends React.Component {
 
   render() {
     return (
-      // <div>
       <div className="background">
         <Nav
           totalScore={this.state.totalScore}
@@ -199,7 +208,6 @@ class Home extends React.Component {
           ))}
         </Wrapper>
       </div>
-      // </div>
     );
   }
 }

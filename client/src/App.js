@@ -9,7 +9,6 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/account" component={Account} />
-        {/* <Route component={NoMatch} /> */}
       </Switch>
     </div>
   </Router>

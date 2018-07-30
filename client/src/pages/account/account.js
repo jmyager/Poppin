@@ -1,38 +1,12 @@
 import React from "react";
 import Nav from "../../components/Nav";
 import "./account.css";
-import $ from "jquery";
 
 class Account extends React.Component {
   state = {
     username: "jmyager",
     userScore: 1160,
   };
-
-
-  // When page loads
-//   componentDidMount = () => {
-//     this.getAll();
-//   }
-
-  // Default ajax call to pull all places from database
-//   getAll = () => {
-//     $.ajax({
-//       method: "GET",
-//       url: "/places"
-//     })
-//       .then((data) => {
-//         console.log(data);
-//         this.setState({ ...this.state, places: data })
-//         console.log("state " + this.state.places);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       })
-//   }
-
-
-
 
   render() {
     return (
@@ -49,7 +23,7 @@ class Account extends React.Component {
         <h1 className="text-center">My Account</h1>
         <div className="row">
             <div className="col-4 text-center">
-                <img className="img-thumbnail bioImg" src="http://byrnenixon.com/wp-content/uploads/2017/07/placeholder-bio.png" />
+                <img className="img-thumbnail bioImg" src="http://byrnenixon.com/wp-content/uploads/2017/07/placeholder-bio.png" alt="account profile" />
                 <a href="#">Edit Profile Picture</a>
             </div>
             <div className="col-8">
