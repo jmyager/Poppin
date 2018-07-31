@@ -1,12 +1,14 @@
 {
-  "name": "app",
+  "name": "react-firebase-authentication",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
     "cors": "^2.8.4",
+    "firebase": "^5.3.0",
     "jquery": "^3.3.1",
     "radium": "^0.24.1",
+    "rc-menu": "^7.2.6",
     "react": "^16.4.1",
     "react-animations": "^1.0.0",
     "react-dom": "^16.4.1",

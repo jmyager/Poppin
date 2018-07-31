@@ -1,0 +1,75 @@
+
+
+html{
+        background: url(../images/bg.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        text-decoration: none;
+         
+}
+
+body{
+        background-color: '';
+        text-decoration: none;
+        
+}
+
+a{
+        text-decoration: none;
+}
+    
+.logo{
+        margin-top: 55px;
+        width: 100%;
+
+}
+
+
+
+
+.btn {
+        border: 2px solid;
+        background-color: white;
+        color: rgb(250, 250, 250);
+        padding: 14px 60px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 3px solid;
+        background-color: rgba(0, 0, 0, 0.623);
+        border: 3px solid transparent;
+        border-image: linear-gradient(-60deg, #1FA2FF, #12D8FA, #A6FFCB);
+        border-image-slice: 1;
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 12px;
+        margin-right: 12px;
+}
+
+.info {
+        border-color: white;
+        color:linear-gradient(-60deg, #1FA2FF, #12D8FA, #A6FFCB);
+}
+    
+.info:hover:enabled {
+        background: linear-gradient(-60deg, #1FA2FF, #12D8FA, #A6FFCB);
+        color:linear-gradient(-60deg, #1FA2FF, #12D8FA, #A6FFCB);
+}
+
+.info:disabled{
+        color: grey;
+        cursor: pointer;
+}
+
+
+
+.spacer{
+        margin-top: 0;
+}
+
+.fake:hover{
+        color: hotpink;
+        cursor: pointer;
+}

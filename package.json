@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "poppinn",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "Realtime nightclub data",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
@@ -23,8 +23,14 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "i": "^0.3.6",
     "if-env": "^1.0.4",
     "mongoose": "^5.2.5",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "radium": "^0.24.1",
+    "rc-menu": "^7.2.6",
+    "react-animations": "^1.0.0",
+    "react-bootstrap": "^0.32.1",
+    "reactstrap": "^6.3.1"
   }
 }
