@@ -1,4 +1,4 @@
-# PopIn
+# Popin
 
 ### Realtime crowdsourced nightlife data
     
