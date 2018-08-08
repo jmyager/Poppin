@@ -18,6 +18,8 @@ We observed a lack of available data for the live activity of different nightclu
 ## Overview
 Popin allows the user to create an account and login with firebase authentication installed. Once logged in, the user is able to load their city (for MVP concerns we have only implemented Raleigh, NC so far). The city view showcases all nightlife venues, sorted by highest popularity score (or "Popin Score"). The Popin Score is dictated by the users, in real time, with a simple upvote or downvote. Users are also able to filter and sort the data, to better evaluate the venues based on their preferences.
 
+[![Screen_Shot_2018-07-29_at_2.19.37_PM.png](https://s8.postimg.cc/6iqq58u2t/Screen_Shot_2018-07-29_at_2.19.37_PM.png)](https://postimg.cc/image/4e6d45sg1/)
+
 ## Demo
 For presentation purposes, we've built the demo to showcase the main use case of the application: mobile. In order to view the demo, please follow the instructions below:
 1. Launch the (Heroku application)[https://frozen-bastion-62666.herokuapp.com/]
@@ -68,5 +70,3 @@ ___
 ##### PASSWORD: dealigg
   _________
 
-
-[![Screen_Shot_2018-07-29_at_2.19.37_PM.png](https://s8.postimg.cc/6iqq58u2t/Screen_Shot_2018-07-29_at_2.19.37_PM.png)](https://postimg.cc/image/4e6d45sg1/)
