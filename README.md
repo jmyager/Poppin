@@ -22,9 +22,9 @@ Popin allows the user to create an account and login with firebase authenticatio
 
 ## Demo
 For presentation purposes, we've built the demo to showcase the main use case of the application: mobile. In order to view the demo, please follow the instructions below:
-1. Launch the [Heroku application](https://frozen-bastion-62666.herokuapp.com/){:target="_blank"}
+1. Launch the Heroku application: [Right click and open in new tab](https://frozen-bastion-62666.herokuapp.com/)
 2. Once the application has launched on Heroku, you may close the window.
-3. Launch the [Demo Mobile Viewer](https://shreedamin.github.io/demo/){:target="_blank"}
+3. Launch the Demo Mobile Viewer: [Right click and open in new tab](https://shreedamin.github.io/demo/){:target="_blank"}
 
 ## To Run the application locally on your machine, follow the instructions below:
 
