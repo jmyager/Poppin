@@ -13,7 +13,7 @@ ____
   _____
 
 ## Why Popin?
-We observed a lack of available data for the live activity of different nightclub venues. We believe this type of data would be valuable to a consumer planning their night out, as well as the venue owner attempting to bring in more business. As such, Popin was born.
+We observed a lack of available data for the live activity of different nightlife venues. We believe this type of data would be valuable to a consumer planning their night out, as well as the venue owner attempting to bring in more business. As such, Popin was born.
 
 ## Overview
 Popin allows the user to create an account and login with firebase authentication installed. Once logged in, the user is able to load their city (for MVP concerns we have only implemented Raleigh, NC so far). The city view showcases all nightlife venues, sorted by highest popularity score (or "Popin Score"). The Popin Score is dictated by the users, in real time, with a simple upvote or downvote. Users are also able to filter and sort the data, to better evaluate the venues based on their preferences.
