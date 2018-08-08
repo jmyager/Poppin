@@ -1,14 +1,30 @@
 # PopIn
 
-### Realtime nightclub/bar data
+### Realtime crowdsourced nightlife data
     
 ____
 # Built With:
   - React
   - Firebase
   - Mongo
-  - and more
+  - Javascript
+  - HTML
+  - CSS
   _____
+
+## Why Popin?
+We observed a lack of available data for the live activity of different nightclub venues. We believe this type of data would be valuable to a consumer planning their night out, as well as the venue owner attempting to bring in more business. As such, Popin was born.
+
+## Overview
+Popin allows the user to create an account and login with firebase authentication installed. Once logged in, the user is able to load their city (for MVP concerns we have only implemented Raleigh, NC so far). The city view showcases all nightlife venues, sorted by highest popularity score (or "Popin Score"). The Popin Score is dictated by the users, in real time, with a simple upvote or downvote. Users are also able to filter and sort the data, to better evaluate the venues based on their preferences.
+
+## Demo
+For presentation purposes, we've built the demo to showcase the main use case of the application: mobile. In order to view the demo, please follow the instructions below:
+1. Launch the (Heroku application)[https://frozen-bastion-62666.herokuapp.com/]
+2. Once the application has launched on Heroku, you may close the window.
+3. Launch the (Demo Mobile Viewer)[https://shreedamin.github.io/demo/]
+
+## To Run the application locally on your machine, follow the instructions below:
 
 ### Instructions:
 *You need to have Node, React and Mongo installed 
