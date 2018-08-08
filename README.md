@@ -26,7 +26,7 @@ For presentation purposes, we've built the demo to showcase the main use case of
 
 ## To Run the application locally on your machine, follow the instructions below:
 
-### Instructions:
+### Note:
 *You need to have Node, React and Mongo installed 
 *Add your firebase keys to the firebase.js file located in poppinn/client/src/firebase/firebase.js
 *In your firebase console, make sure you have email authentication enabled 
