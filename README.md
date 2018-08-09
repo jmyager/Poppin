@@ -5,8 +5,10 @@
 ____
 # Built With:
   - React
+  - MongoDb
+  - Express
   - Firebase
-  - Mongo
+  - React Animate
   - Javascript
   - HTML
   - CSS
